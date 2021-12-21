@@ -5,7 +5,13 @@ import appReducer from "./app/reducer";
 
 const rootReducer = combineReducers({ auth: authReducer, app: appReducer });
 
+// usually we don't pass function inside action but we only pass plain objects
+// But if we have to pass function inside action we can do so using middleware
+// where middleware will be executing the function and once the function has been
+// executed it will return a plain object which will be sent inside the function
+
 const networkRequestsMiddleware = (store) => (next) => (action) => {
+  // It is wriiten using currying functions in JS
   if (typeof action === "function") {
     console.log("found an action which is a function");
     const func = action;
